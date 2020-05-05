@@ -1,0 +1,23 @@
+#! /bin/bash
+#PBS -S /bin/bash
+#PBS -N Experiment_Name
+#PBS -A sponsor_name
+# -l is the resources needed
+#PBS -l select=1:mem=6gb:ncpus=1
+#PBS -j oe
+#PBS -o /path/to/logs/logs
+#PBS -M your.email@someplace.org
+#PBS -m abe
+# Commands to run this file: 
+# 1. export ODDIR="/Path/To/Experiment/Image/Directory"
+# 2. export MATLIB="/path/to/MATLAB/MATLAB_Runtime/v92" 
+# 3. ./run_ODELAM_HPC_v2.sh  $MATLIB InitExp "$ODDIR" 
+# 4. qsub -q workq -V -J 1-80 this_file_name.pbs
+
+ export ODDIR="/Path/To/Experiment/Image/Directory"
+ export MATLIB="/gpfs/dell-ha/apps/MATLAB/MATLAB_Runtime/v92"
+#wellID = $PBS_ARRAY_INDEX
+cd "/active/aitchison_j/aitchison/Thurston/MATLAB/ODELAY HPC"
+
+./run_ODELAM_HPC_v2.sh "$MATLIB" dirLoc "$ODDIR" well $PBS_ARRAY_INDEX
+
